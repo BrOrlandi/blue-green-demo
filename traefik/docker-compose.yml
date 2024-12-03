@@ -6,7 +6,6 @@ services:
     command:
       - '--api.dashboard=true'
       - '--providers.docker=true'
-      - '--providers.file.filename=/etc/traefik/dynamic-conf.yml'
       - '--entrypoints.web.address=:80'
       - '--entrypoints.websecure.address=:443'
       - '--certificatesresolvers.myresolver.acme.tlschallenge=true'
