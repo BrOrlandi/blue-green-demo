@@ -1,0 +1,32 @@
+
+services:
+  traefik:
+    image: traefik:v3
+    container_name: traefik
+    command:
+      - '--api.dashboard=true'
+      - '--providers.docker=true'
+      - '--providers.file.filename=/etc/traefik/dynamic-conf.yml'
+      - '--entrypoints.web.address=:80'
+      - '--entrypoints.websecure.address=:443'
+      - '--certificatesresolvers.myresolver.acme.tlschallenge=true'
+      - '--certificatesresolvers.myresolver.acme.email=seu.email@exemplo.com' # Substitua pelo seu email
+      - '--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json'
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - './letsencrypt:/letsencrypt'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './dynamic-conf.yml:/etc/traefik/dynamic-conf.yml' # Monta o arquivo de configuração dinâmica
+    networks:
+      - traefik
+    labels:
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.bluegreen.duckdns.org`)"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
+
+networks:
+  traefik:
+    external: true
