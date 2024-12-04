@@ -1,0 +1,23 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "portainer_data:/data"
+    networks:
+      - traefik
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.portainer.rule: "Host(`portainer.bluegreen.duckdns.org`)"
+      traefik.http.routers.portainer.entrypoints: "websecure"
+      traefik.http.routers.portainer.tls.certresolver: "myresolver"
+      traefik.http.services.portainer.loadbalancer.server.port: "9000"
+
+networks:
+  traefik:
+    external: true
+
+volumes:
+  portainer_data:
