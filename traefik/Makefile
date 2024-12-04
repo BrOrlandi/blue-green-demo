@@ -13,5 +13,5 @@ setup: rsync
 		docker compose up -d"
 
 deploy: rsync
-	ssh $(server) "cd $(project_path) && docker compose up -d"
+	ssh $(server) "cd $(project_path) && docker compose down && docker compose up -d"
 

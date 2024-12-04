@@ -6,6 +6,7 @@ services:
     command:
       - '--api.dashboard=true'
       - '--providers.docker=true'
+      - '--providers.file.filename=/etc/traefik/traefik_dynamic.yml'
       - '--entrypoints.web.address=:80'
       - '--entrypoints.websecure.address=:443'
       - '--certificatesresolvers.myresolver.acme.tlschallenge=true'
@@ -17,7 +18,7 @@ services:
     volumes:
       - './letsencrypt:/letsencrypt'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - './dynamic-conf.yml:/etc/traefik/dynamic-conf.yml' # Monta o arquivo de configuração dinâmica
+      - './traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml' # Monta o arquivo de configuração dinâmica
     networks:
       - traefik
     labels:
@@ -25,6 +26,7 @@ services:
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
       - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
+      # - "traefik.http.routers.traefik-dashboard.middlewares=dashboard-auth@file" # Descomente para ativar autenticação
 
 networks:
   traefik:

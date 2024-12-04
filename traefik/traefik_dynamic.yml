@@ -1,0 +1,11 @@
+http:
+  middlewares:
+    https-only:
+      redirectScheme:
+        scheme: https
+
+    # Descomente para habilitar o basic auth
+    # dashboard-auth:
+    #   basicAuth:
+    #     users:
+    #       - 'admin:$2y$05$u8ePgAG18SvWxdvA44wDcOkv5LGHAHJ8EXXkk6Y1LSKDFG7MvKPlu'
