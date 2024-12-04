@@ -1,0 +1,18 @@
+services:
+  app-sample:
+    build: .
+    container_name: app-sample
+    environment:
+      - NODE_ENV=development
+    networks:
+      - traefik
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.app-sample.rule: "Host(`app.bluegreen.duckdns.org`)"
+      traefik.http.routers.app-sample.entrypoints: "websecure"
+      traefik.http.routers.app-sample.tls.certresolver: "myresolver"
+      traefik.http.services.app-sample.loadbalancer.server.port: "3000"
+
+networks:
+  traefik:
+    external: true
