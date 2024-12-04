@@ -1,9 +1,0 @@
-http:
-  routers:
-    my-router:
-      rule: 'Host(`bluegreen.duckdns.org`)'
-      entryPoints:
-        - websecure
-      service: my-service
-      tls:
-        certResolver: myresolver
