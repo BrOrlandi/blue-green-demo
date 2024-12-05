@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deployment Status</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+
+      #deployment {
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        font-size: 2.5rem;
+        color: white;
+        text-align: center;
+        width: 50%;
+        max-width: 600px;
+        min-width: 300px;
+      }
+
+      #deployment.blue {
+        background-color: #007bff; /* Cor azul para blue */
+      }
+
+      #deployment.green {
+        background-color: #28a745; /* Cor verde para green */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="deployment" class="blue">Loading...</div>
+
+    <script>
+      const deployment = '${DEPLOYMENT}';
+      const deploymentDiv = document.getElementById('deployment');
+      console.log({ deployment });
+      deploymentDiv.textContent =
+        deployment === 'blue' ? 'BLUE DEPLOYMENT' : 'GREEN DEPLOYMENT';
+      deploymentDiv.className = deployment; // Aplica classe com base na variável deployment (blue ou green)
+    </script>
+  </body>
+</html>
