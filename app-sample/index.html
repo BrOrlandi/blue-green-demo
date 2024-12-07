@@ -46,6 +46,20 @@
       deploymentDiv.textContent =
         deployment === 'blue' ? 'BLUE DEPLOYMENT' : 'GREEN DEPLOYMENT';
       deploymentDiv.className = deployment; // Aplica classe com base na variável deployment (blue ou green)
+
+      // polling to /deployment to update the deployment if is blue or green
+      setInterval(() => {
+        fetch('/deployment')
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            if (data !== deployment) {
+              deploymentDiv.textContent =
+                data === 'blue' ? 'BLUE DEPLOYMENT' : 'GREEN DEPLOYMENT';
+              deploymentDiv.className = data; // Aplica classe com base na variável data (blue ou green)
+            }
+          });
+      }, 1000);
     </script>
   </body>
 </html>

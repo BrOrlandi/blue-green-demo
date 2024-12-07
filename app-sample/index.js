@@ -21,6 +21,10 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/deployment', (req, res) => {
+  res.send(process.env.DEPLOYMENT || 'unknown');
+});
+
 app.get('/healthcheck', (req, res) => {
   res.send('ok!');
 });
