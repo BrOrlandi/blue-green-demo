@@ -10,3 +10,6 @@ deploy: rsync
 deploy-bg: rsync
 	ssh $(server) "cd $(project_path) && sh ./deploy.sh"
 
+down:
+	ssh $(server) "cd $(project_path) && docker compose down"
+
