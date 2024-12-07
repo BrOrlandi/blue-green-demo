@@ -44,7 +44,11 @@
       const deploymentDiv = document.getElementById('deployment');
       console.log({ deployment });
       deploymentDiv.textContent =
-        deployment === 'blue' ? 'BLUE DEPLOYMENT' : 'GREEN DEPLOYMENT';
+        deployment === 'blue'
+          ? 'BLUE DEPLOYMENT'
+          : deployment === 'green'
+          ? 'GREEN DEPLOYMENT'
+          : 'DEPLOYED';
       deploymentDiv.className = deployment; // Aplica classe com base na variável deployment (blue ou green)
 
       // polling to /deployment to update the deployment if is blue or green
@@ -55,7 +59,11 @@
             console.log(data);
             if (data !== deployment) {
               deploymentDiv.textContent =
-                data === 'blue' ? 'BLUE DEPLOYMENT' : 'GREEN DEPLOYMENT';
+                data === 'blue'
+                  ? 'BLUE DEPLOYMENT'
+                  : data === 'green'
+                  ? 'GREEN DEPLOYMENT'
+                  : 'DEPLOYED';
               deploymentDiv.className = data; // Aplica classe com base na variável data (blue ou green)
             }
           });
