@@ -1,6 +1,7 @@
 services:
   traefik:
     image: traefik:v3
+    restart: always
     container_name: traefik
     command:
       - '--api.dashboard=true'
@@ -21,10 +22,10 @@ services:
     networks:
       - traefik
     labels:
-      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.bluegreen.duckdns.org`)"
-      - "traefik.http.routers.traefik-dashboard.service=api@internal"
-      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
-      - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
+      - 'traefik.http.routers.traefik-dashboard.rule=Host(`traefik.devpira.brorlandi.xyz`)'
+      - 'traefik.http.routers.traefik-dashboard.service=api@internal'
+      - 'traefik.http.routers.traefik-dashboard.entrypoints=websecure'
+      - 'traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver'
       # - "traefik.http.routers.traefik-dashboard.middlewares=dashboard-auth@file" # Descomente para ativar autenticação
 
 networks:

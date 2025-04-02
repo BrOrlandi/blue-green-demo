@@ -1,4 +1,4 @@
-server = ec2-user@bluegreen.duckdns.org
+server = ec2-user@devpira.brorlandi.xyz
 project_path = $(shell basename $(shell pwd))
 
 rsync:
