@@ -7,23 +7,22 @@ services:
     networks:
       - traefik
     labels:
-      traefik.enable: "true"
-      traefik.http.routers.app-sample.rule: "Host(`app.bluegreen.duckdns.org`)"
-      traefik.http.routers.app-sample.entrypoints: "websecure"
-      traefik.http.routers.app-sample.tls.certresolver: "myresolver"
-      traefik.http.middlewares.app-sample-retry.retry.attempts: "3"
-      traefik.http.middlewares.app-sample-retry.retry.initialinterval: "500ms"
+      traefik.enable: 'true'
+      traefik.http.routers.app-sample.rule: 'Host(`app.devpira.brorlandi.xyz`)'
+      traefik.http.routers.app-sample.entrypoints: 'websecure'
+      traefik.http.routers.app-sample.tls.certresolver: 'myresolver'
+      traefik.http.services.app-sample.loadbalancer.server.port: '3000'
 
-      traefik.http.services.app-sample.loadbalancer.server.port: "3000"
-      traefik.http.services.app-sample.loadbalancer.healthcheck.path: "/healthcheck"
-      traefik.http.services.app-sample.loadbalancer.healthcheck.port: "3000"
-      traefik.http.services.app-sample.loadbalancer.healthcheck.interval: "10s" # Frequência das verificações
-      traefik.http.services.app-sample.loadbalancer.healthcheck.timeout: "3s"  # Tempo limite para considerar a resposta
+      traefik.http.services.app-sample.loadbalancer.healthcheck.path: '/healthcheck'
+      traefik.http.services.app-sample.loadbalancer.healthcheck.port: '3000'
+      traefik.http.services.app-sample.loadbalancer.healthcheck.interval: '10s' # Frequência das verificações
+      traefik.http.services.app-sample.loadbalancer.healthcheck.timeout: '3s' # Tempo limite para considerar a resposta
 
-      traefik.http.routers.app-sample.middlewares: "app-sample-retry"
+      traefik.http.routers.app-sample.middlewares: 'app-sample-retry'
+      traefik.http.middlewares.app-sample-retry.retry.attempts: '3'
+      traefik.http.middlewares.app-sample-retry.retry.initialinterval: '500ms'
 
-      traefik.http.services.app-sample.loadbalancer.sticky.cookie: "true" # Habilita sticky sessions
-
+      traefik.http.services.app-sample.loadbalancer.sticky.cookie: 'true' # Habilita sticky sessions
 
 networks:
   traefik:

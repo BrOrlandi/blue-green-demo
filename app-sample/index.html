@@ -8,6 +8,7 @@
       body {
         margin: 0;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
@@ -25,20 +26,39 @@
         width: 50%;
         max-width: 600px;
         min-width: 300px;
+        margin-bottom: 20px;
         background-color: #a30124;
       }
 
       #deployment.blue {
-        background-color: #007bff; /* Cor azul para blue */
+        background-color: #007bff;
       }
 
       #deployment.green {
-        background-color: #28a745; /* Cor verde para green */
+        background-color: #28a745;
+      }
+
+      button {
+        padding: 15px 30px;
+        font-size: 1.5rem;
+        background-color: #ffd700;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+        margin-top: 24px;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        background-color: #ffed4a;
       }
     </style>
   </head>
   <body>
     <div id="deployment" class="blue">Loading...</div>
+    <button onclick="window.location.reload()">Atualizar</button>
 
     <script>
       const deployment = '${DEPLOYMENT}';
