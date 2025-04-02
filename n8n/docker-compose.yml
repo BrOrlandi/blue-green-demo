@@ -1,0 +1,42 @@
+networks:
+  traefik:
+    external: true
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:1.79.3
+    restart: always
+    ports:
+      - '127.0.0.1:5678:5678'
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER
+      - N8N_BASIC_AUTH_PASSWORD
+      - N8N_HOST=${DOMAIN_NAME}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${DOMAIN_NAME}/
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_DIAGNOSTICS_CONFIG_FRONTEND=
+      - N8N_DIAGNOSTICS_CONFIG_BACKEND=
+      - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=720
+      - EXECUTIONS_DATA_PRUNE_MAX_COUNT=50000
+      - N8N_HIDE_USAGE_PAGE=false
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - /local-files:/files
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.n8n.rule=Host(`${DOMAIN_NAME}`)
+      - traefik.http.routers.n8n.entrypoints=websecure
+      - traefik.http.routers.n8n.tls.certresolver=myresolver
+      - traefik.http.services.n8n.loadbalancer.server.port=5678
+
+volumes:
+  n8n_data:
